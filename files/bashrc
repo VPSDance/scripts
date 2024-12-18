@@ -1,0 +1,22 @@
+HISTCONTROL=ignoreboth:erasedups
+
+# search history
+if [[ $- =~ i ]]; then
+  # setup functions and key binds
+  bind '"\x1b\x5b\x41":history-search-backward'
+  bind '"\x1b\x5b\x42":history-search-forward'
+fi
+
+alias lsa="ls -lah --color=always"
+lsp() { ls -lah --color=always "$@" | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(" %0o ",k);print}'; }
+killport() {
+  lsof -i :$1 | grep LISTEN | awk '{print $2}' | xargs -r kill -9
+}
+
+alias ls='ls --color=auto'
+alias ll='ls --color=auto -lAF'
+alias grep='grep --color=auto'
+# lsp() { stat -c '%a %A %U %G %s %n' ${1:-*}; }
+# if [ "$color_prompt" = yes ]; then
+export PS1='\[\e[\033[32m\]\D{%y%m%d}-\A \u@\h:\w\[\e[0m\] \n➜ \[\e[0;1;36m\]\W \[\e[0m\]'
+# echo $PS1
