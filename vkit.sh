@@ -15,7 +15,7 @@ DISTRO=$( ([[ -e "/usr/bin/yum" ]] && echo 'CentOS') || ([[ -e "/usr/bin/apt" ]]
 debug=$( [[ $OS == "Darwin" ]] && echo true || echo false )
 cnd=$( tr '[:upper:]' '[:lower:]' <<<"$1" )
 SH='https://sh.vps.dance'
-GH='https://ghp.ci'
+GH='https://ghgo.xyz'
 
 CURR_USER="$(whoami)"
 # with_sudo func; with_sudo ls /root;

@@ -16,7 +16,7 @@ DISTRO=$( ([[ -e "/usr/bin/yum" ]] && echo 'CentOS') || ([[ -e "/usr/bin/apt" ]]
 CURR_USER="$(whoami)"
 ipv4="$(curl -m 5 -fsL4 http://ipv4.ip.sb)"
 loc=$(curl -m5 -sL "https://www.qualcomm.cn/cdn-cgi/trace" | awk -F'=' '/loc/{ print $2 }') # CN,HK,JP,DE,US
-prefix=$( [ -z "$ipv4" ] && echo "https://sh.vps.dance" || echo "https://ghp.ci" )
+prefix=$( [ -z "$ipv4" ] && echo "https://sh.vps.dance" || echo "https://ghgo.xyz" )
 debug=0;
 
 install_requirements() {
