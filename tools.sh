@@ -162,12 +162,15 @@ not_support_ipv6 () {
 download () {
   local temp_dir=$(mktemp -d)
   suffix=$( [[ "$prerelease" = true ]] && echo "releases" || echo "releases/latest" )
-  prefix=$( [ -z "$ipv4" ] && echo "https://sh.vps.dance" || echo " https://ghfast.top" )
+  prefix=$( [ -z "$ipv4" ] && echo "https://sh.vps.dance" || echo "https://ghfast.top" )
   if [[ -n "$repo" ]]; then
     # api="https://api.github.com/repos/$repo/$suffix"
     api="https://sh.vps.dance/api/repos/$repo/$suffix"
     # curl -s https://api.github.com/repos/nxtrace/NTrace-core/releases | grep "browser_download_url.*$match" | head -1 | cut -d : -f 2,3 | xargs echo
     url=$( curl -s $api | grep "browser_download_url.*$match" | head -1 | cut -d : -f 2,3 | xargs echo ) # xargs wget
+    if [[ -z "$url" ]]; then
+      printf "\n${RED}[x] github api error ${NC}\n\n"; exit 1;
+    fi
     url="$prefix/$url"
   fi
   # echo $api; echo $url;exit
@@ -210,7 +213,7 @@ download () {
   echo "$url"
   if [[ "$debug" != true ]]; then
     if [[ -n "$url" ]]; then
-      wget -q -P "$temp_dir" "$url"
+      wget --show-progress -P "$temp_dir" "$url"
     fi
   fi
   # echo -e "\n[Extract files]"
